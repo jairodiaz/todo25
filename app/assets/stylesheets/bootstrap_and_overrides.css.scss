@@ -1,0 +1,73 @@
+$bodyBackground: #E2E3E3;
+$tableBorder: #CBCACA;
+$tableBackground: #F1F1F1;
+$tableBackgroundHover: #FEFEFE;
+$headingsColor: #46A8B9;
+$formActionsBackground: none;
+
+@import "bootstrap";
+@import "bootstrap-responsive";
+
+header { margin-top: 20px; }
+
+.form-actions { background: none; }
+
+button.close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+
+.table th, .table td { text-align: center; }
+
+.form-search {
+  display: inline;
+  float: right;
+  margin: 0;
+}
+
+.btn-group { display: inline; }
+
+.sort_link {
+  color: #333;
+  &:hover {
+    color: #46A8B9;
+    text-decoration: none;
+  }
+}
+
+.navbar-inner {
+  padding-left: 20px;
+  background-color: transparent;
+  background-image: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.navbar {
+  margin: 0;
+  .container {
+    max-width: 1170px;
+  }
+}
+
+.btn-navbar, .btn-navbar:hover {
+  margin-right: 0;
+  background-color: transparent;
+  background-image: -moz-linear-gradient(top, #FEFEFE, #E8E8E8);
+  background-image: -ms-linear-gradient(top, #FEFEFE, #E8E8E8);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FEFEFE), to(#E8E8E8));
+  background-image: -webkit-linear-gradient(top, #FEFEFE, #E8E8E8);
+  background-image: -o-linear-gradient(top, #FEFEFE, #E8E8E8);
+  background-image: linear-gradient(top, #FEFEFE, #E8E8E8);
+  background-repeat: repeat-x;
+  border-color: #E8E8E8 #E8E8E8 #FEFEFE;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) fadein(rgba(0, 0, 0, 0.1), 15%);
+
+  .icon-bar {
+    background-color: #525252;
+  }
+}

@@ -1,0 +1,173 @@
+@mixin first-child-radius($radius) {
+  -moz-border-radius-topleft: $radius;
+  -webkit-border-top-left-radius: $radius;
+  -o-border-top-left-radius: $radius;
+  -ms-border-top-left-radius: $radius;
+  -khtml-border-top-left-radius: $radius;
+  border-top-left-radius: $radius;
+  -moz-border-radius-bottomleft: $radius;
+  -webkit-border-bottom-left-radius: $radius;
+  -o-border-bottom-left-radius: $radius;
+  -ms-border-bottom-left-radius: $radius;
+  -khtml-border-bottom-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+}
+
+@mixin last-child-radius($radius) {
+  -moz-border-radius-topright: $radius;
+  -webkit-border-top-right-radius: $radius;
+  -o-border-top-right-radius: $radius;
+  -ms-border-top-right-radius: $radius;
+  -khtml-border-top-right-radius: $radius;
+  border-top-right-radius: $radius;
+  -moz-border-radius-bottomright: $radius;
+  -webkit-border-bottom-right-radius: $radius;
+  -o-border-bottom-right-radius: $radius;
+  -ms-border-bottom-right-radius: $radius;
+  -khtml-border-bottom-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+@mixin ul-border-radius($radius) {
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -o-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -khtml-border-radius: $radius;
+  border-radius: $radius;
+}
+
+body {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #E3E3E3), color-stop(100%, #C1E1E8));
+  background-image: -webkit-linear-gradient(#E3E3E3 0%, #C1E1E8);
+  background-image: -moz-linear-gradient(#E3E3E3 0%, #C1E1E8);
+  background-image: -o-linear-gradient(#E3E3E3 0%, #C1E1E8);
+  background-image: -ms-linear-gradient(#E3E3E3 0%, #C1E1E8);
+  background-image: linear-gradient(#E3E3E3 0%,#C1E1E8);
+}
+
+.navbar ul.primary_nav {
+  background-image: -webkit-linear-gradient(#FEFEFE, #E8E8E8);
+  background-image: -moz-linear-gradient(#FEFEFE, #E8E8E8);
+  background-image: -o-linear-gradient(#FEFEFE, #E8E8E8);
+  background-image: -ms-linear-gradient(#FEFEFE, #E8E8E8);
+  background-image: linear-gradient(#FEFEFE,#E8E8E8);
+  background-color:#fefefe;
+  @include ul-border-radius(2.5em);
+  -moz-box-shadow:rgba(140,137,137,0.8) 1px 1px 3px;
+  -webkit-box-shadow:rgba(140,137,137,0.8) 1px 1px 3px;
+  -o-box-shadow:rgba(140,137,137,0.8) 1px 1px 3px;
+  box-shadow:rgba(140,137,137,0.8) 1px 1px 3px;
+}
+
+.navbar ul.primary_nav {
+  margin: 20px 0;
+  padding:0;
+  border:0;
+  list-style:none;
+  display:inline;
+  float:left;
+}
+
+.navbar ul.primary_nav li {
+  list-style-image:none;
+  list-style-type:none;
+  margin-left:0px;
+  display:inline;
+  float:left;
+  border-right: 1px solid #e3e3e3;
+}
+
+.navbar ul.primary_nav li:last-child {
+  border: none;
+}
+
+.navbar ul.primary_nav li a {
+  display:inline;
+  float:left;
+  text-transform:uppercase;
+  padding:0 1.5em;
+  line-height:3.6em;
+  color:#524f4f;
+  text-decoration:none;
+  text-align:center;
+  width: 120px;
+}
+
+.navbar ul.primary_nav li a:hover {
+  color:#fff;
+  background-color:#66c6d7;
+}
+
+.navbar ul.primary_nav li:first-child a {
+  padding-left:2.7em;
+  @include first-child-radius(2.5em);
+}
+
+.navbar ul.primary_nav li:last-child a {
+  padding-right:2.7em;
+  @include last-child-radius(2.5em);
+}
+
+@media (max-width: 480px) {
+  #task_search {
+    margin: 10px 0;
+  }
+  #search-btn {
+    margin-top: 8px;
+  }
+
+  header.container{
+    a{
+      padding-left: 7px;
+      /*padding-left: 20px; CENTERED*/
+    }
+  }
+
+  .hidden-phone2{
+    display: none;
+  }
+
+  .navbar ul.primary_nav {
+    width: 100%;
+    @include ul-border-radius(0);
+    margin-top: 0;
+  }
+
+  .table{
+    font-size: 0.85em;
+  }
+
+  .navbar-inner {
+    padding-left: 0px;
+  }
+
+  .nav-collapse{
+    padding-left: 20px;
+  }
+
+  .btn-navbar-wrapper{
+    a.btn.btn-navbar{
+      float: left;
+    }
+  }
+  .navbar ul.primary_nav li {
+    display: block;
+    float: none;
+    border-bottom: 1px solid #CCC;
+    &:first-child a {
+      padding-left: 1.5em;
+      @include first-child-radius(0);
+    }
+    &:last-child a {
+      padding-right: 1.5em;
+      @include last-child-radius(0);
+    }
+    a {
+      display: block;
+      float: none;
+      margin: 0;
+      width: auto;
+    }
+  }
+}

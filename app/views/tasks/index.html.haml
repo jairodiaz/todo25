@@ -1,0 +1,52 @@
+- content_for :title, "Quipper - #{t(@title)}"
+#new_task_container.collapse
+  = render 'new'
+.heading
+  %h1.floating= t(@title)
+  = link_to '#', onClick: 'return false', id: 'new-task-link', 'data-toggle' => "collapse",
+    'data-target'=>"#new_task_container", class: 'btn btn-success' do
+    %i.icon-pencil.icon-white
+    = t(:new_task)
+.filter
+  .btn-group{"data-toggle" => "buttons-radio"}
+    = link_to t(:today), date_filter_path(:today), class: "btn #{is_active_date?(:today)}"
+    = link_to t(:week), date_filter_path(:week), class: "btn #{is_active_date?(:week)}"
+    = link_to t(:month), date_filter_path(:month), class: "btn #{is_active_date?(:month)}"
+    = link_to t(:any), date_filter_path(:any), class: "btn #{is_active_any_date?}"
+  = search_form_for @search, html: {class: 'form-search'} do |f|
+    = f.text_field :name_cont, class: '.input-medium search-query'
+    = f.submit t(:search), class: 'btn', id: 'search-btn'
+%table.table
+  %thead
+    %tr
+      %th.visible-phone
+      %th= t(:mark_done)
+      %th= sort_link @search, :name, t(:task), {page: params[:page], f: params[:f]}, {id: 'sort_name'}
+      %th= sort_link @search, :deadline, t(:deadline), {page: params[:page], f: params[:f]}, {id: 'sort_deadline'}
+      %th.hidden-phone2= sort_link @search, :created_at, t(:created_at), {page: params[:page], f: params[:f]}, {id: 'sort_created_at'}
+      %th.hidden-phone= t(:action)
+      %th.visible-phone
+  %tbody
+    - @tasks.each do |task|
+      %tr{ class: "#{task_row_class(task)}"}
+        = hidden_field_tag :id, task.id, id: "id_#{task.id}"
+        %td.visible-phone
+          = link_to edit_task_path(task), class: 'btn btn-primary btn-mini', title: t(:edit) do
+            %i.icon-edit.icon-white
+        %td= check_box_tag 'done', nil, task.done, id: "checkbox_#{task.id}", status_url: task_path(task), disabled: task.expired?
+        %td.name= task.name
+        %td= task.deadline.try(:strftime, '%d %B %Y')
+        %td.hidden-phone2= task.created_at.strftime('%d %B %Y')
+        %td.hidden-phone
+          = link_to edit_task_path(task), class: 'btn btn-primary btn-mini', title: t(:edit) do
+            %i.icon-edit.icon-white
+            %span.link-name.hidden-phone= t(:edit)
+          = link_to task, confirm: t(:delete_question), method: :delete, class: 'btn btn-danger btn-mini', title: t(:delete) do
+            %i.icon-trash.icon-white
+            %span.hidden-phone.link-name= t(:delete)
+        %td.visible-phone
+          = link_to task, confirm: t(:delete_question), method: :delete, class: 'btn btn-danger btn-mini', title: t(:delete) do
+            %i.icon-trash.icon-white
+
+= will_paginate @tasks, class: 'pagination hidden-phone'
+= will_paginate @tasks, page_links: false, class: 'pagination visible-phone'

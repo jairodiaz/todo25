@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>RSpec results</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <style type="text/css">
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-size: 80%;
+  }
+  </style>
+  <script type="text/javascript">
+    // <![CDATA[
+
+function addClass(element_id, classname) {
+  document.getElementById(element_id).className += (" " + classname);
+}
+
+function removeClass(element_id, classname) {
+  var elem = document.getElementById(element_id);
+  var classlist = elem.className.replace(classname,'');
+  elem.className = classlist;
+}
+
+function moveProgressBar(percentDone) {
+  document.getElementById("rspec-header").style.width = percentDone +"%";
+}
+
+function makeRed(element_id) {
+  removeClass(element_id, 'passed');
+  removeClass(element_id, 'not_implemented');
+  addClass(element_id,'failed');
+}
+
+function makeYellow(element_id) {
+  var elem = document.getElementById(element_id);
+  if (elem.className.indexOf("failed") == -1) {  // class doesn't includes failed
+    if (elem.className.indexOf("not_implemented") == -1) { // class doesn't include not_implemented
+      removeClass(element_id, 'passed');
+      addClass(element_id,'not_implemented');
+    }
+  }
+}
+
+function apply_filters() {
+  var passed_filter = document.getElementById('passed_checkbox').checked;
+  var failed_filter = document.getElementById('failed_checkbox').checked;
+  var pending_filter = document.getElementById('pending_checkbox').checked;
+
+  assign_display_style("example passed", passed_filter);
+  assign_display_style("example failed", failed_filter);
+  assign_display_style("example not_implemented", pending_filter);
+
+  assign_display_style_for_group("example_group passed", passed_filter);
+  assign_display_style_for_group("example_group not_implemented", pending_filter, pending_filter || passed_filter);
+  assign_display_style_for_group("example_group failed", failed_filter, failed_filter || pending_filter || passed_filter);
+}
+
+function get_display_style(display_flag) {
+  var style_mode = 'none';
+  if (display_flag == true) {
+    style_mode = 'block';
+  }
+  return style_mode;
+}
+
+function assign_display_style(classname, display_flag) {
+  var style_mode = get_display_style(display_flag);
+  var elems = document.getElementsByClassName(classname)
+  for (var i=0; i<elems.length;i++) {
+    elems[i].style.display = style_mode;
+  }
+}
+
+function assign_display_style_for_group(classname, display_flag, subgroup_flag) {
+  var display_style_mode = get_display_style(display_flag);
+  var subgroup_style_mode = get_display_style(subgroup_flag);
+  var elems = document.getElementsByClassName(classname)
+  for (var i=0; i<elems.length;i++) {
+    var style_mode = display_style_mode;
+    if ((display_flag != subgroup_flag) && (elems[i].getElementsByTagName('dt')[0].innerHTML.indexOf(", ") != -1)) {
+      elems[i].style.display = subgroup_style_mode;
+    } else {
+      elems[i].style.display = display_style_mode;
+    }
+  }
+}
+
+    // ]]>
+  </script>
+  <style type="text/css">
+#rspec-header {
+  background: #65C400; color: #fff; height: 4em;
+}
+
+.rspec-report h1 {
+  margin: 0px 10px 0px 10px;
+  padding: 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  font-size: 1.8em;
+  position: absolute;
+}
+
+#label {
+  float:left;
+}
+
+#display-filters {
+  float:left;
+  padding: 28px 0 0 40%;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+}
+
+#summary {
+  float:right;
+  padding: 5px 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  text-align: right;
+}
+
+#summary p {
+  margin: 0 0 0 2px;
+}
+
+#summary #totals {
+  font-size: 1.2em;
+}
+
+.example_group {
+  margin: 0 10px 5px;
+  background: #fff;
+}
+
+dl {
+  margin: 0; padding: 0 0 5px;
+  font: normal 11px "Lucida Grande", Helvetica, sans-serif;
+}
+
+dt {
+  padding: 3px;
+  background: #65C400;
+  color: #fff;
+  font-weight: bold;
+}
+
+dd {
+  margin: 5px 0 5px 5px;
+  padding: 3px 3px 3px 18px;
+}
+
+dd .duration {
+  padding-left: 5px;
+  text-align: right;
+  right: 0px;
+  float:right;
+}
+
+dd.example.passed {
+  border-left: 5px solid #65C400;
+  border-bottom: 1px solid #65C400;
+  background: #DBFFB4; color: #3D7700;
+}
+
+dd.example.not_implemented {
+  border-left: 5px solid #FAF834;
+  border-bottom: 1px solid #FAF834;
+  background: #FCFB98; color: #131313;
+}
+
+dd.example.pending_fixed {
+  border-left: 5px solid #0000C2;
+  border-bottom: 1px solid #0000C2;
+  color: #0000C2; background: #D3FBFF;
+}
+
+dd.example.failed {
+  border-left: 5px solid #C20000;
+  border-bottom: 1px solid #C20000;
+  color: #C20000; background: #FFFBD3;
+}
+
+
+dt.not_implemented {
+  color: #000000; background: #FAF834;
+}
+
+dt.pending_fixed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+dt.failed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+
+#rspec-header.not_implemented {
+  color: #000000; background: #FAF834;
+}
+
+#rspec-header.pending_fixed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+#rspec-header.failed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+
+.backtrace {
+  color: #000;
+  font-size: 12px;
+}
+
+a {
+  color: #BE5C00;
+}
+
+/* Ruby code, style similar to vibrant ink */
+.ruby {
+  font-size: 12px;
+  font-family: monospace;
+  color: white;
+  background-color: black;
+  padding: 0.1em 0 0.2em 0;
+}
+
+.ruby .keyword { color: #FF6600; }
+.ruby .constant { color: #339999; }
+.ruby .attribute { color: white; }
+.ruby .global { color: white; }
+.ruby .module { color: white; }
+.ruby .class { color: white; }
+.ruby .string { color: #66FF00; }
+.ruby .ident { color: white; }
+.ruby .method { color: #FFCC00; }
+.ruby .number { color: white; }
+.ruby .char { color: white; }
+.ruby .comment { color: #9933CC; }
+.ruby .symbol { color: white; }
+.ruby .regex { color: #44B4CC; }
+.ruby .punct { color: white; }
+.ruby .escape { color: white; }
+.ruby .interp { color: white; }
+.ruby .expr { color: white; }
+
+.ruby .offending { background-color: gray; }
+.ruby .linenum {
+  width: 75px;
+  padding: 0.1em 1em 0.2em 0;
+  color: #000000;
+  background-color: #FFFBD3;
+}
+
+  </style>
+</head>
+<body>
+<div class="rspec-report">
+
+<div id="rspec-header">
+  <div id="label">
+    <h1>RSpec Code Examples</h1>
+  </div>
+
+  <div id="display-filters">
+    <input id="passed_checkbox" name="passed_checkbox" type="checkbox" checked onchange="apply_filters()" value="1"> <label for="passed_checkbox">Passed</label>
+    <input id="failed_checkbox" name="failed_checkbox" type="checkbox" checked onchange="apply_filters()" value="2"> <label for="failed_checkbox">Failed</label>
+    <input id="pending_checkbox" name="pending_checkbox" type="checkbox" checked onchange="apply_filters()" value="3"> <label for="pending_checkbox">Pending</label>
+  </div>
+
+  <div id="summary">
+    <p id="totals">&nbsp;</p>
+    <p id="duration">&nbsp;</p>
+  </div>
+</div>
+
+
+<div class="results">
+<div id="div_group_1" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_1" class="passed">TasksController</dt>
+  </dl>
+</div>
+<div id="div_group_2" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_2" class="passed">task listing</dt>
+  </dl>
+</div>
+<div id="div_group_3" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_3" class="passed">GET index</dt>
+    <script type="text/javascript">moveProgressBar('1.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">assigns all tasks as @tasks</span><span class='duration'>0.10397s</span></dd>
+  </dl>
+</div>
+<div id="div_group_4" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_4" class="passed">GET done</dt>
+    <script type="text/javascript">moveProgressBar('2.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">assigns done tasks as @tasks</span><span class='duration'>0.01555s</span></dd>
+  </dl>
+</div>
+<div id="div_group_5" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_5" class="passed">GET pending</dt>
+    <script type="text/javascript">moveProgressBar('4.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">assigns pending tasks as @tasks</span><span class='duration'>0.01893s</span></dd>
+  </dl>
+</div>
+<div id="div_group_6" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_6" class="passed">GET expired</dt>
+    <script type="text/javascript">moveProgressBar('5.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">assigns tasks as @tasks</span><span class='duration'>0.01617s</span></dd>
+  </dl>
+</div>
+<div id="div_group_7" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_7" class="passed">GET edit</dt>
+    <script type="text/javascript">moveProgressBar('6.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">assigns the requested task as @task</span><span class='duration'>0.01417s</span></dd>
+    <script type="text/javascript">moveProgressBar('8.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">redirects to previous page in session[:return_to]</span><span class='duration'>0.01366s</span></dd>
+  </dl>
+</div>
+<div id="div_group_8" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_8" class="passed">POST create</dt>
+  </dl>
+</div>
+<div id="div_group_9" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_9" class="passed">with valid params</dt>
+    <script type="text/javascript">moveProgressBar('9.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">creates a new Task</span><span class='duration'>0.06754s</span></dd>
+    <script type="text/javascript">moveProgressBar('10.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">assigns a newly created task as @task</span><span class='duration'>0.06071s</span></dd>
+    <script type="text/javascript">moveProgressBar('12.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">redirects to the created task</span><span class='duration'>0.01012s</span></dd>
+  </dl>
+</div>
+<div id="div_group_10" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_10" class="passed">with invalid params</dt>
+    <script type="text/javascript">moveProgressBar('13.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">assigns a newly created but unsaved task as @task</span><span class='duration'>0.00947s</span></dd>
+    <script type="text/javascript">moveProgressBar('14.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">re-renders the 'new' template</span><span class='duration'>0.00854s</span></dd>
+  </dl>
+</div>
+<div id="div_group_11" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_11" class="passed">PUT update</dt>
+  </dl>
+</div>
+<div id="div_group_12" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_12" class="passed">with valid params</dt>
+    <script type="text/javascript">moveProgressBar('16.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">updates the requested task</span><span class='duration'>0.01567s</span></dd>
+    <script type="text/javascript">moveProgressBar('17.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">assigns the requested task as @task</span><span class='duration'>0.01368s</span></dd>
+    <script type="text/javascript">moveProgressBar('18.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">redirects to the task</span><span class='duration'>0.01100s</span></dd>
+  </dl>
+</div>
+<div id="div_group_13" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_13" class="passed">with invalid params</dt>
+    <script type="text/javascript">moveProgressBar('20.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">assigns the task as @task</span><span class='duration'>0.01164s</span></dd>
+    <script type="text/javascript">moveProgressBar('21.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">re-renders the 'edit' template</span><span class='duration'>0.01478s</span></dd>
+  </dl>
+</div>
+<div id="div_group_14" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_14" class="passed">DELETE destroy</dt>
+    <script type="text/javascript">moveProgressBar('22.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">destroys the requested task</span><span class='duration'>0.01314s</span></dd>
+    <script type="text/javascript">moveProgressBar('24.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">redirects to the tasks list</span><span class='duration'>0.01269s</span></dd>
+  </dl>
+</div>
+<div id="div_group_15" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_15" class="passed">private methods</dt>
+  </dl>
+</div>
+<div id="div_group_16" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_16" class="passed">#apply_filters</dt>
+    <script type="text/javascript">moveProgressBar('25.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return a ransack search object</span><span class='duration'>0.00230s</span></dd>
+    <script type="text/javascript">moveProgressBar('26.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should modify parameters to include query parameter 'q'</span><span class='duration'>0.00536s</span></dd>
+    <script type="text/javascript">moveProgressBar('28.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should modify query parameters to include default sorting by deadline</span><span class='duration'>0.00164s</span></dd>
+    <script type="text/javascript">moveProgressBar('29.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should override default by-deadline sorting query parameters if params present</span><span class='duration'>0.00197s</span></dd>
+  </dl>
+</div>
+<div id="div_group_17" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_17" class="passed">#initialize_task</dt>
+    <script type="text/javascript">moveProgressBar('30.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should initialize a brand new task instance</span><span class='duration'>0.00108s</span></dd>
+  </dl>
+</div>
+<div id="div_group_18" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_18" class="passed">Task</dt>
+    <script type="text/javascript">moveProgressBar('32.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be a valid task</span><span class='duration'>0.00122s</span></dd>
+    <script type="text/javascript">moveProgressBar('33.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require name to be set</span><span class='duration'>0.00326s</span></dd>
+    <script type="text/javascript">moveProgressBar('34.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should ensure name has a length of at most 32</span><span class='duration'>0.00208s</span></dd>
+    <script type="text/javascript">moveProgressBar('36.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have db column named done of type boolean of default false</span><span class='duration'>0.00098s</span></dd>
+  </dl>
+</div>
+<div id="div_group_19" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_19" class="passed">scopes</dt>
+  </dl>
+</div>
+<div id="div_group_20" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_20" class="passed">.pending</dt>
+    <script type="text/javascript">moveProgressBar('37.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">includes tasks that are pending/undone</span><span class='duration'>0.00638s</span></dd>
+    <script type="text/javascript">moveProgressBar('38.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">excludes tasks that are pending/undone</span><span class='duration'>0.00728s</span></dd>
+  </dl>
+</div>
+<div id="div_group_21" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_21" class="passed">.done</dt>
+    <script type="text/javascript">moveProgressBar('40.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">includes tasks that are done</span><span class='duration'>0.00586s</span></dd>
+    <script type="text/javascript">moveProgressBar('41.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">excludes tasks that are done</span><span class='duration'>0.00451s</span></dd>
+  </dl>
+</div>
+<div id="div_group_22" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_22" class="passed">.expired</dt>
+    <script type="text/javascript">moveProgressBar('42.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">includes tasks that are expired</span><span class='duration'>0.00533s</span></dd>
+    <script type="text/javascript">moveProgressBar('44.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">excludes tasks that are expired</span><span class='duration'>0.00572s</span></dd>
+  </dl>
+</div>
+<div id="div_group_23" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_23" class="passed">#status</dt>
+    <script type="text/javascript">moveProgressBar('45.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return an expired status for an expired task</span><span class='duration'>0.00407s</span></dd>
+    <script type="text/javascript">moveProgressBar('46.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not return an expired status for an unexpired task</span><span class='duration'>0.00555s</span></dd>
+  </dl>
+</div>
+<div id="div_group_24" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_24" class="passed">#expired?</dt>
+    <script type="text/javascript">moveProgressBar('48.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return true for an expired task</span><span class='duration'>0.00690s</span></dd>
+    <script type="text/javascript">moveProgressBar('49.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return false for an unexpired task</span><span class='duration'>0.00476s</span></dd>
+  </dl>
+</div>
+<div id="div_group_25" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_25" class="passed">#mark_as_done</dt>
+    <script type="text/javascript">moveProgressBar('50.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">marks a pending task as done</span><span class='duration'>0.00809s</span></dd>
+  </dl>
+</div>
+<div id="div_group_26" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_26" class="passed">Tasks</dt>
+  </dl>
+</div>
+<div id="div_group_27" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_27" class="passed">A User</dt>
+  </dl>
+</div>
+<div id="div_group_28" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_28" class="passed">should be able to create a task so that he/she does not forget something to do</dt>
+    <script type="text/javascript">moveProgressBar('52.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should see the created task in the main list</span><span class='duration'>0.62663s</span></dd>
+  </dl>
+</div>
+<div id="div_group_29" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_29" class="passed">should be able to create a task with a deadline so that he/she does not miss deadline</dt>
+    <script type="text/javascript">moveProgressBar('53.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should see the created task with deadline in the main list</span><span class='duration'>0.12611s</span></dd>
+  </dl>
+</div>
+<div id="div_group_30" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_30" class="passed">should be able to edit a task so that he/she can change a task after it has been created</dt>
+    <script type="text/javascript">moveProgressBar('54.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should see the edited task in the main list</span><span class='duration'>0.16528s</span></dd>
+  </dl>
+</div>
+<div id="div_group_31" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_31" class="passed">should be able to mark a task as done so that he/she can distinguish incomplete tasks from complete ones</dt>
+    <script type="text/javascript">moveProgressBar('56.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be able to mark a task as done from the main list</span><span class='duration'>2.75653s</span></dd>
+    <script type="text/javascript">moveProgressBar('57.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be in the pending list</span><span class='duration'>0.11324s</span></dd>
+    <script type="text/javascript">moveProgressBar('58.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be in the done list</span><span class='duration'>0.18198s</span></dd>
+  </dl>
+</div>
+<div id="div_group_32" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_32" class="passed">should be able to see all tasks which didn't meet deadline as of today</dt>
+    <script type="text/javascript">moveProgressBar('60.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be in the expired list</span><span class='duration'>0.05673s</span></dd>
+    <script type="text/javascript">moveProgressBar('61.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be in the all list</span><span class='duration'>0.12097s</span></dd>
+    <script type="text/javascript">moveProgressBar('62.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be in the pending list</span><span class='duration'>0.05750s</span></dd>
+    <script type="text/javascript">moveProgressBar('64.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be in the done list</span><span class='duration'>0.08643s</span></dd>
+  </dl>
+</div>
+<div id="div_group_33" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_33" class="passed">should be able to delete a task so that he/she can remove a task which is not a task anymore</dt>
+  </dl>
+</div>
+<div id="div_group_34" class="example_group passed">
+  <dl style="margin-left: 45px;">
+  <dt id="example_group_34" class="passed">deleted task should not be in any list</dt>
+    <script type="text/javascript">moveProgressBar('65.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be in the all list</span><span class='duration'>0.09827s</span></dd>
+    <script type="text/javascript">moveProgressBar('66.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be in the done list</span><span class='duration'>0.13087s</span></dd>
+    <script type="text/javascript">moveProgressBar('68.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be in the pending list</span><span class='duration'>0.14199s</span></dd>
+    <script type="text/javascript">moveProgressBar('69.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be in the expired list</span><span class='duration'>0.08321s</span></dd>
+  </dl>
+</div>
+<div id="div_group_35" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_35" class="passed">should be able to see paginated results on all lists (8 per page)</dt>
+    <script type="text/javascript">moveProgressBar('70.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">in the all list</span><span class='duration'>0.34239s</span></dd>
+    <script type="text/javascript">moveProgressBar('72.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">in the expired list</span><span class='duration'>0.31251s</span></dd>
+    <script type="text/javascript">moveProgressBar('73.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">in the pending list</span><span class='duration'>0.30090s</span></dd>
+    <script type="text/javascript">moveProgressBar('74.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">in the done list</span><span class='duration'>0.31321s</span></dd>
+  </dl>
+</div>
+<div id="div_group_36" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_36" class="passed">should be able to search tasks by name</dt>
+    <script type="text/javascript">moveProgressBar('76.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return results that contain kit</span><span class='duration'>0.16827s</span></dd>
+    <script type="text/javascript">moveProgressBar('77.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return results that contain something similar like DoG</span><span class='duration'>0.20235s</span></dd>
+  </dl>
+</div>
+<div id="div_group_37" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_37" class="passed">filtering tasks by deadline</dt>
+    <script type="text/javascript">moveProgressBar('78.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be able to see all</span><span class='duration'>0.24649s</span></dd>
+    <script type="text/javascript">moveProgressBar('80.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be able to see only those for today</span><span class='duration'>0.21035s</span></dd>
+    <script type="text/javascript">moveProgressBar('81.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be able to see only those for the current week</span><span class='duration'>0.18684s</span></dd>
+    <script type="text/javascript">moveProgressBar('82.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be able to see only those for the current month</span><span class='duration'>0.23116s</span></dd>
+  </dl>
+</div>
+<div id="div_group_38" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_38" class="passed">ordering tasks</dt>
+  </dl>
+</div>
+<div id="div_group_39" class="example_group passed">
+  <dl style="margin-left: 45px;">
+  <dt id="example_group_39" class="passed">by created at</dt>
+    <script type="text/javascript">moveProgressBar('84.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be able to sort them in ascendant order</span><span class='duration'>0.24536s</span></dd>
+    <script type="text/javascript">moveProgressBar('85.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be able to sort them in descendant order</span><span class='duration'>0.16476s</span></dd>
+  </dl>
+</div>
+<div id="div_group_40" class="example_group passed">
+  <dl style="margin-left: 45px;">
+  <dt id="example_group_40" class="passed">by deadline</dt>
+    <script type="text/javascript">moveProgressBar('86.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be able to sort them in ascendant order</span><span class='duration'>0.20736s</span></dd>
+    <script type="text/javascript">moveProgressBar('88.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be able to sort them in descendant order</span><span class='duration'>0.16693s</span></dd>
+  </dl>
+</div>
+<div id="div_group_41" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_41" class="passed">TasksController</dt>
+  </dl>
+</div>
+<div id="div_group_42" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_42" class="passed">routing</dt>
+    <script type="text/javascript">moveProgressBar('89.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">routes to #index</span><span class='duration'>0.00329s</span></dd>
+    <script type="text/javascript">moveProgressBar('90.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">routes to #done</span><span class='duration'>0.00246s</span></dd>
+    <script type="text/javascript">moveProgressBar('92.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">routes to #pending</span><span class='duration'>0.00278s</span></dd>
+    <script type="text/javascript">moveProgressBar('93.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">routes to #expired</span><span class='duration'>0.00267s</span></dd>
+    <script type="text/javascript">moveProgressBar('94.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">routes to #new</span><span class='duration'>0.00295s</span></dd>
+    <script type="text/javascript">moveProgressBar('96.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">routes to #edit</span><span class='duration'>0.00311s</span></dd>
+    <script type="text/javascript">moveProgressBar('97.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">routes to #create</span><span class='duration'>0.00305s</span></dd>
+    <script type="text/javascript">moveProgressBar('98.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">routes to #update</span><span class='duration'>0.00242s</span></dd>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">routes to #destroy</span><span class='duration'>0.00229s</span></dd>
+  </dl>
+</div>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>8.66794 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "75 examples, 0 failures";</script>
+</div>
+</div>
+</body>
+</html>

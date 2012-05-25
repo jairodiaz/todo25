@@ -1,0 +1,40 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  hello: "Hello world"
+  quipper_todo: "Quipper TODO"
+  quipper_explanation: |
+    This is an example application prepared by CodeScrum Ltd. 
+    It showcases a responsible design supporting mobile devices, search functionality, multiple filters, pagination, sorting and AJAX among other features.
+    The code has been tested using Rspec and documented with Yard. 
+  new_task: "New Task"
+  delete: "Delete"
+  edit: "Edit"
+  task: "Task"
+  deadline: "Deadline"
+  created_at: "Created at"
+  action: "Action"
+  mark_done: "Done?"
+  all_tasks: "All Tasks"
+  pending_tasks: "Pending Tasks"
+  expired_tasks: "Expired Tasks"
+  tasks_done: "Tasks done"
+  all: "All"
+  pending: "Pending"
+  done: "Done"
+  expired: "Expired"
+  cancel: "Cancel"
+  ok: "OK"
+  back: "Back"
+  delete_question: "Are you sure you want to delete your task?"
+  today: "Today"
+  week: "Week"
+  month: "Month"
+  any: "Any"
+  search: "Search"
+  task_created: "Task was successfully created."
+  task_updated: "Task was successfully updated."
+  edit_task: "Editing task"
+  create_task: "Create Task"
+  update_task: "Update Task"

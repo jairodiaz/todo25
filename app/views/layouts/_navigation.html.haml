@@ -1,0 +1,13 @@
+.navbar-inner
+  .container
+    .btn-navbar-wrapper
+      %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse", 'title' => 'Menu'}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    .nav-collapse
+      %ul.nav.primary_nav
+        %li= link_to t(:all), tasks_path
+        %li= link_to t(:pending), pending_tasks_path
+        %li= link_to t(:done), done_tasks_path
+        %li= link_to t(:expired), expired_tasks_path

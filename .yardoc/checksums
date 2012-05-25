@@ -1,0 +1,5 @@
+app/models/task.rb ff05bb0df4e43b52f047a7e856c2af53c6e2d543
+app/helpers/tasks_helper.rb 5e5c2d66b62ead5b689ddb170ae51438abcc7a7a
+app/helpers/application_helper.rb eef3d3adce96afe8b14c19b6135323f47543d979
+app/controllers/tasks_controller.rb 66da230d6d0b467385458e597414c9e8fa7155ce
+app/controllers/application_controller.rb 2036468398e54b3fc8af23cb6f9e1716293320eb

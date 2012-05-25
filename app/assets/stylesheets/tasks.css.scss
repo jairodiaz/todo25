@@ -1,0 +1,36 @@
+#new-task-link {
+  float: right;
+  display: inline;
+}
+
+.heading {
+  overflow: hidden;
+  margin-bottom: 8px;
+  h1.floating {
+    display: inline;
+    float: left;
+  }
+}
+
+.filter {
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+tbody tr.expired {
+  color: #666;
+  font-style: italic;
+  .name {
+    text-decoration: line-through;
+  }
+  a {
+    font-style: normal;
+  }
+}
+
+.btn-navbar-wrapper {
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.link-name { display: inline-block; }
